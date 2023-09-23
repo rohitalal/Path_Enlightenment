@@ -1,0 +1,12 @@
+1.State
+2.props
+3.getDerivedStateFromProps()--Takes two argument(state, props)
+4.onclick/onClick="shoot()"
+5.ComponentDidMount()
+6.ShouldComponentUpdate()---->Returns the boolean value, to update the props of the state
+7.getSnapshotBeforUpdate()--->In the getSnapshotBeforeUpdate() method you have access to the props and state before the update, meaning that even after the update, you can check what the values were before the update.
+8.ComponentDidUpdate()--->Then the componentDidUpdate() method is executed and writes a message in the empty DIV2 element:
+9.ComponentWillUnmount()--->
+10.map()--->In React, you will render lists with some type of loop.The JavaScript map() array method is generally the preferred method.
+11.useState()----->
+12.useEffect()---->

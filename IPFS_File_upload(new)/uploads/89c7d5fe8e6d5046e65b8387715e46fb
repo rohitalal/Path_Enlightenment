@@ -1,0 +1,7 @@
+_id,title,AuthorName,pages,genre[0],genre[1],rating,AuthoName,review[0].name,review[0].body
+64fd4a9778d4ef938f5431e4,Wings of Fire,APJ Abdul Kalam,500,Autobiographical,technological,9,,,
+64fd4c8478d4ef938f5431e6,Harry Potter,,800,fantasy,magical,8,J K Rowling,,
+64fd4c8478d4ef938f5431e7,Noddy,,200,children,adventure,7,Enid Blyton,,
+64fd4c8478d4ef938f5431e8,Sherlock Holmes,,1050,mystery,thriller,9,Arthur Conon Doyle,,
+64fd505417d40f4b31bad9a3,The Alchemist,Paulo Coelho,900,drama,adventure,,,,
+64fd717f17d40f4b31bad9a5,xyz,Rohu,300,thriller,horror,,,srijan,excellent
