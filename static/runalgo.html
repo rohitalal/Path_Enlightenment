@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Segmentation Algorithm</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden
+            
+        }
+
+        .wrapper {
+            width: 100%;
+            height: 100vh;
+            background-color: black;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container-propeller {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            height: 0;
+            animation-name: show;
+            animation-duration: 4.8s;
+            animation-timing-function: ease-out;
+            animation-fill-mode: forwards;
+            opacity: 0;
+        }
+
+        @keyframes show {
+            0% {
+                opacity: 0;
+            }
+
+            45% {
+                height: 0;
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+                height: 68%;
+            }
+        }
+
+        .box {
+            width: 80px;
+            height: 10px;
+            border: solid 1px #FF530D;
+            animation-name: boxGrow;
+            animation-fill-mode: forwards;
+            animation-duration: 4.8s;
+            animation-timing-function: ease-out;
+        }
+
+        @keyframes boxGrow {
+            0% {
+                height: 10px;
+            }
+
+            45% {
+                height: 10px;
+            }
+
+            100% {
+                height: 30px;
+            }
+        }
+
+        .box--top {
+            border-radius: 10px 10px 0 0;
+            border-bottom: 0px;
+            transform: translateY(20px);
+        }
+
+        .box--bottom {
+            border-radius: 0 0 10px 10px;
+            border-top: 0px;
+            transform: translateY(-20px);
+        }
+
+        .ball {
+            width: 10px;
+            height: 10px;
+            background-color: #FF530D;
+            border-radius: 10px;
+            margin: 10px;
+            animation-iteration-count: infinite;
+            animation-timing-function: ease-in-out;
+            animation-duration: 1.3s;
+        }
+
+        .sub-container-propeller--left>.ball {
+            animation-name: rotationA;
+        }
+
+        .sub-container-propeller--right>.ball {
+            animation-name: rotationB;
+        }
+
+        @keyframes rotationA {
+            0% {
+                opacity: 1;
+                transform: translateX(0px);
+            }
+
+            25% {
+                opacity: 0.2;
+            }
+
+            50% {
+                transform: translateX(30px);
+                opacity: 1;
+            }
+
+            75% {
+                opacity: 0.2;
+            }
+
+            100% {
+                transform: translateX(0px);
+                opacity: 1;
+            }
+        }
+
+        @keyframes rotationB {
+            0% {
+                opacity: 0.2;
+                transform: translateX(0px);
+            }
+
+            25% {
+                opacity: 1;
+            }
+
+            50% {
+                transform: translateX(-30px);
+                opacity: 0.2;
+            }
+
+            75% {
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateX(0px);
+                opacity: 0.2;
+            }
+        }
+
+        .sub-container-propeller--left>.ball {
+            transform: translateX(-30px);
+        }
+
+        .container-message {
+            margin: 20px;
+            margin-bottom: 40px;
+            opacity: 0;
+            overflow: hidden;
+            animation-name: textAnimation;
+            animation-duration: 4.8s;
+            animation-fill-mode: forwards;
+            text-align: center;
+        }
+
+        @keyframes textAnimation {
+            0% {
+                width: 0px;
+                height: 40px;
+                margin: 20px;
+                margin-bottom: 40px;
+                opacity: 0;
+            }
+
+            38% {
+                opacity: 1;
+            }
+
+            40% {
+                opacity: 0;
+                height: 40px;
+                margin: 20px;
+                margin-bottom: 40px;
+                transform: translateX(80px);
+            }
+
+            45% {
+                width: 100%;
+                height: 0px;
+                opacity: 0;
+                margin: 0;
+            }
+
+            47% {
+                width: 100%;
+                height: 0px;
+                opacity: 0;
+            }
+
+            50% {
+                width: 100%;
+                margin: 0;
+                opacity: 0;
+            }
+
+            100% {
+                width: 100%;
+                height: 0;
+                opacity: 0;
+                margin: 0;
+            }
+        }
+
+        h1 {
+            color: white;
+            font-family: 'Poiret One', cursive;
+            font-size: 42px;
+            white-space: nowrap;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to bottom, #68b7ba, #85c7e3);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        h1 {
+            color: white;
+            padding: 20px;
+            margin: 0;
+            text-align: center;
+            width: 100%;
+        }
+
+        form {
+            background-color: grey;
+            padding: 20px;
+            margin: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="file"] {
+            margin: 10px 0;
+        }
+
+        input[type="submit"] {
+            background-color: #0B0F1D;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        a {
+            text-decoration: none;
+            margin-top: 20px;
+        }
+
+         button {
+            background-color: #0B0F1D;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        } 
+
+        #uploaded {
+            display: none;
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <link href="https://fonts.googleapis.com/css?family=Poiret+One" rel="stylesheet">
+    <div class="wrapper">
+        <h1>Detecting Mutations</h1>
+        <div class="box box--top"></div>
+        <div class="container-propeller">
+            <div class="sub-container-propeller--left">
+                
+                <div class="ball"></div>
+                <div class="ball"></div>
+                <div class="ball"></div>
+                <div class="ball"></div>
+                <div class="ball"></div>
+                <div class="ball"></div>
+                <div class="ball"></div>
+                <div class="ball"></div>
+                <div class="ball"></div>
+                <div class="ball"></div>
+                <div class="ball"></div>
+                <div class="ball"></div>
+                <div class="ball"></div>
+            </div>
+            <div class="sub-container-propeller--right">
+                <div class="ball"></div>
+                <div class="ball"></div>
+                <div class="ball"></div>
+                <div class="ball"></div>
+                <div class="ball"></div>
+                <div class="ball"></div>
+                <div class="ball"></div>
+                <div class="ball"></div>
+                <div class="ball"></div>
+                <div class="ball"></div>
+                <div class="ball"></div>
+                <div class="ball"></div>
+                <div class="ball"></div>
+            </div>
+        </div>
+        <div class="box box--bottom"></div>
+        <form id="algorithm-form" action="/process" method="POST" enctype="multipart/form-data">
+            <label for="csv_file">Upload DNA Sequence</label>
+            <input type="file" name="csv_file" id="csv_file" accept=".csv" required>
+            <br>
+            
+            <input type="submit" value="Run">
+        </form>
+        <div id="result" style="color: white;"></div>
+        
+        <button id="ipfs" onclick="fun()" style="display: none;">Upload</button><br><br>
+        <div id="uploaded" style="color:white">
+            File Uploaded...... <br>
+            CID - QmXbbnxRurTYGvvF9AB4Li6jBfXBeyM41EC3W8rZ8ugWkP
+        </div>
+
+        <a href="http://127.0.0.1:8080/pat_menu.html" style="color:cyan">Back to User Menu</a>
+
+
+    </div>
+
+    <script>
+        // JavaScript code goes here
+        var ballsDelay = document.querySelectorAll('.sub-container-propeller--right>.ball').lenght;
+        var ballsLeft = document.querySelectorAll('.sub-container-propeller--left>.ball');
+        var ballsRight = document.querySelectorAll('.sub-container-propeller--right>.ball');
+
+        for (i = 0; i < ballsLeft.length; i++) {
+            ballsLeft[i].setAttribute('style', 'animation-delay: ' + [i] + '00ms');
+            ballsRight[i].setAttribute('style', 'animation-delay: ' + [i] + '00ms');
+        }
+
+        function fun() {
+            document.getElementById('uploaded').style.display = 'block';
+        }
+
+        document.getElementById('algorithm-form').addEventListener('submit', function (event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            // Create a FormData object to send the file to the server
+            const formData = new FormData(this);
+
+            // Make a POST request to the server to process the file
+            fetch('/process', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    // Handle the response data (e.g., display the result)
+                    const resultDiv = document.getElementById('result');
+                    resultDiv.textContent = 'Raw Data Processed. Upload the processed data to IPFS?';
+
+                    // Show the "Upload" button after the "Run" button is clicked
+                    document.getElementById('ipfs').style.display = 'block';
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        });
+    </script>
+</body>
+
+</html>
